@@ -1,0 +1,12 @@
+GET http://localhost:8000/blog-posts
+
+###
+GET http://localhost:8000/blog-posts/1
+
+###
+POST http://localhost:8000/blog-posts
+
+{
+    "title": "Third Title",
+    "author": "Jocelyn Appino"
+}
