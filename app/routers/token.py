@@ -6,7 +6,7 @@ from ..repositories import user_repository
 
 router = APIRouter()
 
-def is_authenticated(username: str, password: str) -> bool:
+def are_valid_credentials(username: str, password: str) -> bool:
     user = user_repository.get_user(username)
     if user == None:
         return False
@@ -15,9 +15,9 @@ def is_authenticated(username: str, password: str) -> bool:
     return True
 
 @router.post("/token")
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+async def get_token(form_data: OAuth2PasswordRequestForm = Depends()):
     username = form_data.username
     password = form_data.password
-    if not is_authenticated(username, password):
+    if not are_valid_credentials(username, password):
         raise HTTPException(status_code=400, detail="Incorrect username or password.")
     return { "access_token": username, "token_type": "bearer" }
